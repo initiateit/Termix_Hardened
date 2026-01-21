@@ -1,0 +1,30 @@
+steps:
+  # Build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/api-service:latest', '.']
+
+  # Push the container image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/api-service:latest']
+
+  # Deploy container image to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+    - 'run'
+    - 'deploy'
+    - 'api-service'
+    - '--image'
+    - 'gcr.io/$PROJECT_ID/api-service:latest'
+    - '--region'
+    - 'us-central1'
+    - '--service-account'
+    - 'termix-hardened@termix-hardened.iam.gserviceaccount.com'
+    - '--set-env-vars'
+    - 'GOOGLE_CLOUD_PROJECT_ID=termix-hardened'
+    - '--port'
+    - '8080'
+    - '--allow-unauthenticated'
+
+images:
+  - 'gcr.io/$PROJECT_ID/api-service:latest'

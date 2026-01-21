@@ -10,6 +10,7 @@ import { TabDropdown } from "@/ui/desktop/navigation/tabs/TabDropdown.tsx";
 import { SSHToolsSidebar } from "@/ui/desktop/apps/tools/SSHToolsSidebar.tsx";
 import { useCommandHistory } from "@/ui/desktop/apps/features/terminal/command-history/CommandHistoryContext.tsx";
 import { QuickConnectDialog } from "@/ui/desktop/navigation/dialogs/QuickConnectDialog.tsx";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 interface TabData {
   id: number;
@@ -454,7 +455,6 @@ export function TopNavbar({
                 onDragOver={handleDragOver}
                 onDrop={handleDrop}
                 onDragEnd={handleDragEnd}
-                e
                 onMouseDown={(e) => {
                   if (e.button === 1 && !disableClose) {
                     e.preventDefault();
@@ -528,6 +528,8 @@ export function TopNavbar({
 
         <div className="flex items-center justify-center gap-2 flex-1 px-2">
           <TabDropdown />
+
+          <ThemeToggle />
 
           <Button
             variant="outline"
