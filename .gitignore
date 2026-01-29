@@ -28,3 +28,4 @@ dist-ssr
 .gitignore
 SETUP_GITHUB_SECRETS.md
 CHANGELOG_2025-09-20.md
+secrets.ts
